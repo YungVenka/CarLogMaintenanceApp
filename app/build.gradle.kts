@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlinAndroid)
+    kotlin("kapt")
 }
 
 android {
@@ -29,6 +31,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
@@ -42,9 +47,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
 
     // Room Database (База данни)
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-runtime:2.7.0-alpha13")
+    implementation("androidx.room:room-ktx:2.7.0-alpha13")
+    kapt("androidx.room:room-compiler:2.7.0-alpha13")
 
     // Lifecycle & ViewModel (Архитектура)
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
