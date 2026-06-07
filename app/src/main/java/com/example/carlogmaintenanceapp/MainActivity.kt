@@ -36,14 +36,20 @@ class MainActivity : AppCompatActivity() {
         viewModel.allLogs.observe(this) { logs ->
             adapter.submitList(logs)
         }
+
+        val fabAddLog = findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fabAddLog)
+        fabAddLog.setOnClickListener {
+            val intent = android.content.Intent(this, AddEditLogActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun showDeleteDialog(log: MaintenanceLog) {
         AlertDialog.Builder(this)
-            .setTitle("Изтриване")
-            .setMessage("Сигурни ли сте, че искате да изтриете този ремонт?")
-            .setNegativeButton("Отказ", null)
-            .setPositiveButton("Изтрий") { _, _ ->
+            .setTitle(R.string.dialog_delete_title)
+            .setMessage(R.string.dialog_delete_message)
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.delete) { _, _ ->
                 viewModel.delete(log)
             }
             .show()

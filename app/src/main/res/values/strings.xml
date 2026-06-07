@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">CarLogMaintenanceApp</string>
+    <string name="title_main">Дневник на ремонтите</string>
+    <string name="add_log_title">Добави нов ремонт</string>
+    <string name="hint_title">Име на ремонта (напр. Смяна на масло)</string>
+    <string name="hint_mileage">Пробег (км)</string>
+    <string name="hint_price">Цена (€)</string>
+    <string name="btn_save">Запази ремонта</string>
+    <string name="desc_add_log">Добави ремонт</string>
+    <string name="label_repair">Ремонт</string>
+    <string name="default_price">0.00 €</string>
+    <string name="default_mileage">0 км</string>
+    <string name="dialog_delete_title">Изтриване</string>
+    <string name="dialog_delete_message">Сигурни ли сте, че искате да изтриете този ремонт?</string>
+    <string name="cancel">Отказ</string>
+    <string name="delete">Изтрий</string>
+    <string name="error_empty_fields">Моля, попълнете всички полета!</string>
+    <string name="success_save">Ремонтът е запазен успешно!</string>
 </resources>
