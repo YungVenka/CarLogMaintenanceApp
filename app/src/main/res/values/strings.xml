@@ -16,4 +16,7 @@
     <string name="delete">Изтрий</string>
     <string name="error_empty_fields">Моля, попълнете всички полета!</string>
     <string name="success_save">Ремонтът е запазен успешно!</string>
+    <string name="error_invalid_numbers">Невалиден формат на числата!</string>
+    <string name="btn_add_photo">Добави снимка</string>
+    <string name="btn_remove_photo">Изтрий снимката</string>
 </resources>

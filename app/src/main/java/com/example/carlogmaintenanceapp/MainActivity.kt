@@ -26,14 +26,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = MaintenanceAdapter { log ->
-            showDeleteDialog(log)
-        }
+        val adapter = MaintenanceAdapter(
+            onItemClick = { log ->
+                // Отваряне за редакция
+                val intent = android.content.Intent(this, AddEditLogActivity::class.java).apply {
+                    putExtra("LOG_ID", log.id)
+                    putExtra("LOG_TITLE", log.title)
+                    putExtra("LOG_MILEAGE", log.mileage)
+                    putExtra("LOG_PRICE", log.price)
+                    putExtra("LOG_DESC", log.description)
+                    putExtra("LOG_DATE", log.date)
+                    putExtra("LOG_IMAGE_URI", log.imageUri)
+                }
+                startActivity(intent)
+            },
+            onItemLongClick = { log ->
+                // Изтриване
+                showDeleteDialog(log)
+            }
+        )
         
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         viewModel.allLogs.observe(this) { logs ->
+            // Обновяване на списъка
             adapter.submitList(logs)
         }
 
