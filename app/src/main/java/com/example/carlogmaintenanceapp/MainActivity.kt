@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
 
+
     private val viewModel: MaintenanceViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,29 +20,32 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         
+        // настройка за край до край на екрана
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        // намираме списъка в дизайна
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        
+
         val adapter = MaintenanceAdapter(
             onItemClick = { log ->
-                // Отваряне за редакция
+                // edit
                 val intent = android.content.Intent(this, AddEditLogActivity::class.java).apply {
                     putExtra("LOG_ID", log.id)
                     putExtra("LOG_TITLE", log.title)
                     putExtra("LOG_MILEAGE", log.mileage)
                     putExtra("LOG_PRICE", log.price)
-                    putExtra("LOG_DESC", log.description)
                     putExtra("LOG_DATE", log.date)
                     putExtra("LOG_IMAGE_URI", log.imageUri)
                 }
                 startActivity(intent)
             },
             onItemLongClick = { log ->
-                // Изтриване
+                // hold
                 showDeleteDialog(log)
             }
         )
@@ -49,11 +53,12 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+
         viewModel.allLogs.observe(this) { logs ->
-            // Обновяване на списъка
             adapter.submitList(logs)
         }
 
+        // празна форма за нов ремонт
         val fabAddLog = findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fabAddLog)
         fabAddLog.setOnClickListener {
             val intent = android.content.Intent(this, AddEditLogActivity::class.java)
@@ -61,12 +66,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // съобщение за delete
     private fun showDeleteDialog(log: MaintenanceLog) {
         AlertDialog.Builder(this)
             .setTitle(R.string.dialog_delete_title)
             .setMessage(R.string.dialog_delete_message)
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.delete) { _, _ ->
+                // ако каже "Да", трием записа през ViewModel
                 viewModel.delete(log)
             }
             .show()

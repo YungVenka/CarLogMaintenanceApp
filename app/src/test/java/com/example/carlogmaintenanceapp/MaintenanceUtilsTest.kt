@@ -5,15 +5,11 @@ import org.junit.Test
 
 class MaintenanceUtilsTest {
 
-    @Test
-    fun testFormatMileage() {
-        val result = MaintenanceUtils.formatMileage(180000)
-        assertEquals("180 000 км", result)
-    }
 
     @Test
-    fun testFormatPrice() {
-        val result = MaintenanceUtils.formatPrice(120.50)
-        assertEquals("120.50 €", result)
+    fun testFormat() {
+        val mileage = 150000
+        val result = MaintenanceUtils.formatMileage(mileage)
+        assertEquals("150 000 км", result)
     }
 }

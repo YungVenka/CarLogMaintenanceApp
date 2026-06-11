@@ -19,4 +19,5 @@
     <string name="error_invalid_numbers">Невалиден формат на числата!</string>
     <string name="btn_add_photo">Добави снимка</string>
     <string name="btn_remove_photo">Изтрий снимката</string>
+    <string name="btn_share">Сподели ремонта</string>
 </resources>

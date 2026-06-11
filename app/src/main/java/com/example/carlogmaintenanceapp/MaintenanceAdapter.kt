@@ -17,12 +17,14 @@ class MaintenanceAdapter(
 ) : ListAdapter<MaintenanceLog, MaintenanceAdapter.MaintenanceViewHolder>(LogDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaintenanceViewHolder {
+        // свързваме XML дизайна на една кутийка със списъка
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_maintenance_log, parent, false)
         return MaintenanceViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MaintenanceViewHolder, position: Int) {
+
         val log = getItem(position)
         holder.bind(log, onItemClick, onItemLongClick)
     }
@@ -39,11 +41,12 @@ class MaintenanceAdapter(
             onItemLongClick: (MaintenanceLog) -> Unit
         ) {
             tvTitle.text = log.title
-            // Форматиране
+            
+            // форматираме текста
             tvMileage.text = MaintenanceUtils.formatMileage(log.mileage)
             tvPrice.text = MaintenanceUtils.formatPrice(log.price)
 
-            // Зареждане на снимка
+            // зареждане на снимка, ако има
             if (!log.imageUri.isNullOrEmpty()) {
                 ivThumbnail.visibility = View.VISIBLE
                 ivThumbnail.load(File(log.imageUri))
@@ -51,6 +54,7 @@ class MaintenanceAdapter(
                 ivThumbnail.visibility = View.GONE
             }
 
+            // настройка на кликовете
             itemView.setOnClickListener {
                 onItemClick(log)
             }
@@ -62,6 +66,7 @@ class MaintenanceAdapter(
         }
     }
 
+    // помощен клас за сравняване на списъци
     class LogDiffCallback : DiffUtil.ItemCallback<MaintenanceLog>() {
         override fun areItemsTheSame(oldItem: MaintenanceLog, newItem: MaintenanceLog): Boolean {
             return oldItem.id == newItem.id

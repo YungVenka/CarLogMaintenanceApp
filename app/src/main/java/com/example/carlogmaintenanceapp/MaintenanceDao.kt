@@ -6,19 +6,19 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MaintenanceDao {
 
-    // Вземане на всички записи
+    // вземаме всички записи по дата
     @Query("SELECT * FROM maintenance_logs ORDER BY date DESC")
     fun getAllLogs(): Flow<List<MaintenanceLog>>
 
-    // Добавяне или обновяване
+    // добавяме/обновяваме нов запис
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLog(log: MaintenanceLog)
 
-    // Изтриване на запис
+    // изтриване на запис
     @Delete
     suspend fun deleteLog(log: MaintenanceLog)
 
-    // Вземане по ID
+    // търсим запис по ID
     @Query("SELECT * FROM maintenance_logs WHERE id = :logId LIMIT 1")
     suspend fun getLogById(logId: Int): MaintenanceLog?
 }

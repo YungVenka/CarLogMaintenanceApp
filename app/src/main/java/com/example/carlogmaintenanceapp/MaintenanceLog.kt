@@ -10,7 +10,6 @@ data class MaintenanceLog(
     val title: String,
     val mileage: Int,
     val price: Double,
-    val description: String,
     val date: Long,
     val imageUri: String? = null
 )
